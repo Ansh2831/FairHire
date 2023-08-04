@@ -1,0 +1,498 @@
+{% comment %} 
+   {% endcomment %}
+
+
+{{message}}
+<a href="/complaint">Complaint</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>FairHire</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+  
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+        <style>
+
+html {
+    scroll-behavior: smooth;
+    font-family: Helvetica, sans-serif, Arial;
+}
+
+body {
+    margin: 0 auto;
+    background-color: #222;
+}
+
+.chat-bar-collapsible {
+    position: fixed;
+    bottom: 0;
+    right: 50px;
+    z-index: 99;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.collapsible {
+    background-color: rgb(82, 151, 255);
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 350px;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px 10px 0px 0px;
+    border: 3px solid white;
+    border-bottom: none;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+.full-chat-block {
+    width: 350px;
+    background: white;
+    text-align: center;
+    overflow: auto;
+    scrollbar-width: none;
+    height: max-content;
+    transition: max-height 0.2s ease-out;
+}
+
+.outer-container {
+    min-height: 500px;
+    bottom: 0%;
+    position: relative;
+}
+
+.chat-container {
+    max-height: 500px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    scroll-behavior: smooth;
+    hyphens: auto;
+}
+
+.chat-container::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-bar-input-block {
+    display: flex;
+    float: left;
+    box-sizing: border-box;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: rgb(235, 235, 235);
+    border-radius: 10px 10px 0px 0px;
+    padding: 10px 0px 10px 10px;
+}
+
+.chat-bar-icons {
+    display: flex;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    width: 25%;
+    float: right;
+    font-size: 20px;
+}
+
+#chat-icon:hover {
+    opacity: .7;
+}
+
+/* Chat bubbles */
+
+#userInput {
+    width: 75%;
+}
+
+.input-box {
+    float: left;
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    color: #000;
+    background-color: white;
+    outline: none
+}
+
+.userText {
+    color: white;
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: right;
+    clear: both;
+}
+
+.userText span {
+    line-height: 1.5em;
+    display: inline-block;
+    background: #5ca6fa;
+    padding: 10px;
+    border-radius: 8px;
+    border-bottom-right-radius: 2px;
+    max-width: 80%;
+    margin-right: 10px;
+    animation: floatup .5s forwards
+}
+
+.botText {
+    color: #000;
+    font-family: Helvetica;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+}
+
+.botText span {
+    line-height: 1.5em;
+    display: inline-block;
+    background: #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    border-bottom-left-radius: 2px;
+    max-width: 80%;
+    margin-left: 10px;
+    animation: floatup .5s forwards
+}
+.input-box::placeholder {
+    color: #1a0909; /* set the placeholder text color */
+    opacity: 0.5; /* set the placeholder text opacity */
+}
+@keyframes floatup {
+    from {
+        transform: translateY(14px);
+        opacity: .0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .full-chat-block {
+        width: 100%;
+        border-radius: 0px;
+    }
+    .chat-bar-collapsible {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        z-index: 99;
+    }
+    .collapsible {
+        width: 100%;
+        border: 0px;
+        border-top: 3px solid white;
+        border-radius: 0px;
+    }
+    .chat-container{
+
+    }
+    .outer-container, .full-chat-block  {
+        height: 300px;
+    }
+    #chat-button{
+        
+    }
+}
+        </style>
+
+    </head>
+    <body id="page-top" style="width: 100% !important;">
+        {% include "header.html" %}
+        <!-- Navigation-->
+        <!-- <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Fairhire</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Home</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Complaint</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Laws & Regulations</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav> -->
+        <!-- Masthead-->
+    <header class="masthead text-white bg-primary text-center position-relative has-bg-img bg-purple bg-blend-multiply">
+        <div class="container d-flex align-items-center flex-column">
+            <div class="img-holder w-100 py-0">
+                <img class="bg obj-fit-cover img-fluid" src="{% static 'assets/img/Background.jpg'  %}" alt="...">
+            </div>
+            <h1 class="masthead-heading text-uppercase mb-0 pt-3">Fight Against Discrimination</h1>
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Anshu -->
+
+
+
+
+
+
+        <div class="chat-bar-collapsible">
+            <button id="chat-button" type="button" class="collapsible" style="background: #2C3E50; text-align: center;">Tap here to chat with AI
+                <!-- <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i> -->
+            </button>
+    
+            <div class="content">
+                <div class="full-chat-block">
+                    
+                    <div class="outer-container">
+                        <div class="chat-container">
+                            
+                            <div id="chatbox">
+                                <!-- <h5 id="chat-timestamp"></h5> -->
+                                <p id="botStarterMessage" class="botText"><span>Loading...</span></p>
+                            </div>
+    
+                           <form action="chatbot" method="post" id="chat_form">
+                            {% csrf_token %}
+                            <div class="chat-bar-input-block">
+                                <div id="userInput">
+                                    <input id="textInput" class="input-box " type="text" name="msg"
+                                        placeholder="Tap 'Enter' to send a message">
+                                    <p></p>
+                                </div>
+    
+                                <div class="chat-bar-icons">
+                                    <!-- <button onclick="sendButton()" style="background: transparent; border: none;">-></button> -->
+                                <button type="submit" class="btn btn-primary" id="textInputsend">
+                                    <i class="fas fa-paper-plane"></i> 
+                                </button>
+                                </div>
+                            </div>
+                            </form>
+                            <div id="chat-bar-bottom">
+                                <p></p>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+    
+
+
+
+
+<!-- Anshu -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <!-- About Section-->
+        <!-- <section class="page-section bg-primary text-white mb-0 " id="about"> -->
+        <section class="page-section bg-white text-primary mb-0 " id="about">
+
+            <div class="container">
+                <!-- About Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-primary">About Fairhire</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line bg-primary"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star text-primary"></i></div>
+                    <div class="divider-custom-line bg-primary"></div>
+                </div>
+                <!-- About Section Content-->
+                <div class="row" style="justify-content: center; ">
+                    <div class="col-lg-8 text-center" ><p class="lead">Here at Fairhire, We care about people feeling discrimination at their workplace. Hence, we are trying to help as many people as we can to fight against discrimination and get the justice.You can complain about discrimination here through form, you can also learn about your rights at the workplace and many more things. Once you file a complaint, ministry will inquire about your complain and will try its best to provide justice to you.</p></div>
+                </div>
+                <!-- About Section Button-->
+                
+            </div>
+        </section>
+        {% include "footer.html" %}
+        <!-- Contact Section-->
+       
+        <!-- Footer-->
+        
+        <!-- Portfolio Modals-->
+        <!-- Portfolio Modal 1-->
+        
+        
+        <!-- Portfolio Modal 3-->
+       
+        <!-- Portfolio Modal 6-->
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+        <script>
+            // Collapsible
+var coll = document.getElementsByClassName("collapsible");
+
+for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+
+        var content = this.nextElementSibling;
+
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+
+    });
+}
+
+   
+function getTime() {
+    let today = new Date();
+    hours = today.getHours();
+    minutes = today.getMinutes();
+
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    let time = hours + ":" + minutes;
+    return time;
+}
+
+// Gets the first message
+function firstBotMessage() {
+    let firstMessage = "How can I help you?"
+    document.getElementById("botStarterMessage").innerHTML = '<p class="botText"><span>' + firstMessage + '</span></p>';
+
+    let time = getTime();
+
+    $("#chat-timestamp").append(time);
+    document.getElementById("userInput").scrollIntoView(false);
+}
+
+firstBotMessage();
+
+var count =0
+// $("#textInputsend").click(function (e) {
+    // const one = false
+    //  if (one == true) { return } else {
+        $(document).on('submit', "#chat_form", function (e) {
+        count ++;
+        let userinput = $("#textInput").val()
+        console.log(userinput)
+        $('#textInput').val('');
+        let userHtml = '<p class="userText"><span>' + userinput + '</span></p>';
+        $("#chatbox").append(userHtml);
+        let typingHtml = '<p class="botText"><span class="typing-indicator">Typing.....</span></p>';
+        $("#chatbox").append(typingHtml);
+
+        document.getElementById("chat-bar-bottom").scrollIntoView(true);
+
+        e.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: '/chatbot',
+            data: {
+                message:userinput,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {
+                $("#chatbox").find(".typing-indicator").parent().remove();
+                
+                let botHtml = '<p class="botText"><span>' + data.res + '</span></p>';
+                $("#chatbox").append(botHtml);
+
+
+                document.getElementById("chat-bar-bottom").scrollIntoView(true);
+                // Clear the chat input field
+
+
+            }
+        })
+    })
+    // one = true;
+// }
+    
+// });
+        </script>
+    </body>
+</html>

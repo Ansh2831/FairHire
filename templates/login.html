@@ -1,0 +1,82 @@
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href="{% static 'css/styles.css' %}"  type='text/css' media='all' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700,900" />
+  <title>Login</title>
+  <style>
+     @media (max-width: 450px) {
+            
+      .login-wrapper{
+        flex-wrap: wrap;
+      }  
+      .login-first, .login-second{
+          
+          width: 100% !important;
+        }
+        .login-first{
+          height: 35% !important;
+        }
+        .login-second{
+          height: 65% !important;
+        }
+        h1{
+          text-align: center;
+          font-size: 45px !important;
+        }
+        h3{
+          font-size: 20px !important;
+        }
+
+        #loginbtn{
+          color: black !important;
+        }
+
+      }
+  </style>
+</head>
+<body>
+  {{message}}
+  
+  <div class="d-flex w-100 h-100 login-wrapper">
+      
+    <div class=" login-first w-50 h-100 d-flex align-items-center justify-content-center bg-gray">
+      
+      <div>
+        
+        <h1 class="text-light" style="font-size: 70px"><b>Welcome to <a href="/" style="color: 1abc9c; text-decoration: none;">Fairhire</a></b></h1>
+        <!-- <img src="{% static 'image/telescope_logo.png' %}" style="width:400px"> -->
+      </div>
+    </div>
+    <div class="w-50  login-second h-100 d-flex align-items-center justify-content-center bg-teal">
+      <form action="login" method="post" class="w-100 p-5">
+        {% csrf_token %}
+        
+        <h3 class="text-light text-center">THIS IS ONLY FOR MINISTRY</h3>
+        {% if msg%}
+          <div class="alert alert-danger" role="alert">
+            {{msg}}
+          </div>
+        {% endif%}  
+        <input type="text" name="userid" placeholder="Email Address" class="w-100 my-3 text-light py-2"><br>        
+        <input type="password" name="password" placeholder="Password" class="w-100 my-3 text-light py-2"><br>
+        <input type="submit" id="loginbtn" onclick="xyz()" value="Login" class="w-50 my-3 py-2"><br>
+        <a href="/forgot_password" class="link-dark">Forgot Your Password?</a>  <br><br>
+        
+        <!-- Dont have an account?<br> <a href="registeruser" style="color: black;">Register here</a> -->
+      </form>
+
+      
+    </div>
+  </div>
+  <script>
+    function xyz(){
+      localStorage.setItem("logged_in", "True");
+    }
+  </script>
+</body>
+</html>
